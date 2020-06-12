@@ -11,7 +11,7 @@ const (
 // RefundRequest 退款请求
 type RefundRequest struct {
 	XMLName       xml.Name `xml:"xml"`
-	AppID       string   `xml:"appid,omitempty"`
+	AppID         string   `xml:"appid,omitempty"`
 	MchID         string   `xml:"mch_id,omitempty"`
 	NonceStr      string   `xml:"nonce_str,omitempty"`
 	Sign          string   `xml:"sign,omitempty"`
@@ -37,7 +37,7 @@ type RefundResponse struct {
 	TransactionID       string `xml:"transaction_id"`
 	OutTradeNo          string `xml:"out_trade_no"`
 	OutRefundNo         string `xml:"out_refund_no"`
-	RefundID        string `xml:"refund_id"`
+	RefundID            string `xml:"refund_id"`
 	RefundFee           int64  `xml:"refund_fee"`
 	SettlementRefundFee int64  `xml:"settlement_refund_fee"`
 	TotalFee            int64  `xml:"total_fee"`

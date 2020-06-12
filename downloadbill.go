@@ -20,11 +20,11 @@ const (
 
 const (
 	// BillTypeAll 返回当日所有订单信息，默认值
-	BillTypeAll            = "ALL"
+	BillTypeAll = "ALL"
 	// BillTypeSuccess 返回当日成功支付的订单
-	BillTypeSuccess        = "SUCCESS"
+	BillTypeSuccess = "SUCCESS"
 	// BillTypeRefund 返回当日退款订单
-	BillTypeRefund         = "REFUND"
+	BillTypeRefund = "REFUND"
 	// BillTypeRechargeRefund 返回当日充值退款订单
 	BillTypeRechargeRefund = "RECHARGE_REFUND"
 )
@@ -170,7 +170,9 @@ tryLoop:
 	firstPart := response.Bill[0 : pos+1]
 	secondPart := response.Bill[pos+1:]
 
-	orderList, err := csv.NewReader(strings.NewReader(firstPart)).ReadAll()
+	reader := csv.NewReader(strings.NewReader(firstPart))
+	reader.LazyQuotes = true
+	orderList, err := reader.ReadAll()
 	if err != nil {
 		globalLogger.printf("csv.NewReader err: %v", err)
 		return nil, err
@@ -212,7 +214,9 @@ tryLoop:
 		}
 	}
 
-	statisticsList, err := csv.NewReader(strings.NewReader(secondPart)).ReadAll()
+	reader = csv.NewReader(strings.NewReader(secondPart))
+	reader.LazyQuotes = true
+	statisticsList, err := reader.ReadAll()
 	if err != nil {
 		globalLogger.printf("csv.NewReader err: %v", err)
 		return nil, err
@@ -244,7 +248,7 @@ const (
 	// BillTradeStatusSuccess 成功
 	BillTradeStatusSuccess = "SUCCESS"
 	// BillTradeStatusRefund 退款
-	BillTradeStatusRefund  = "REFUND"
+	BillTradeStatusRefund = "REFUND"
 	// BillTradeStatusRevoked 撤销
 	BillTradeStatusRevoked = "REVOKED"
 )
@@ -261,20 +265,20 @@ type BillStatistics struct {
 // BillEntry 账单条目
 type BillEntry struct {
 	TimeEnd         string `csv:"交易时间"`
-	AppID          string `csv:"公众账号ID"`
+	AppID           string `csv:"公众账号ID"`
 	MchID           string `csv:"商户号"`
 	SubMchID        string `csv:"子商户号"`
 	DeviceInfo      string `csv:"设备号"`
 	TransactionID   string `csv:"微信订单号"`
 	OutTradeNo      string `csv:"商户订单号"`
-	OpenID         string `csv:"用户标识"`
+	OpenID          string `csv:"用户标识"`
 	TradeType       string `csv:"交易类型"`
 	TradeStatus     string `csv:"交易状态"`
 	BankType        string `csv:"付款银行"`
 	FeeType         string `csv:"货币种类"`
 	TotalFee        string `csv:"总金额"`
 	CouponFee       string `csv:"企业红包金额"`
-	RefundID       string `csv:"微信退款单号"`
+	RefundID        string `csv:"微信退款单号"`
 	OutRefundNo     string `csv:"商户退款单号"`
 	RefundFee       string `csv:"退款金额"`
 	CouponRefundFee string `csv:"企业红包退款金额"`

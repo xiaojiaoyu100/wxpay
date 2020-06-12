@@ -28,7 +28,7 @@ type ReverseResponse struct {
 	Recall   string `xml:"recall"`
 }
 
-// Reverse 撤销交易　
+// Reverse 撤销交易
 // https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=9_11&index=3
 func (c *Client) Reverse(request *ReverseRequest) (*ReverseResponse, error) {
 	request.MchID = c.mchID

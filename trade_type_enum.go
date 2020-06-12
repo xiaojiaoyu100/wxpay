@@ -2,13 +2,13 @@ package wxpay
 
 const (
 	// TradeTypeJs 公众号支付
-	TradeTypeJs       = "JSAPI"
+	TradeTypeJs = "JSAPI"
 	// TradeTypeNative 扫码支付
-	TradeTypeNative   = "NATIVE"
+	TradeTypeNative = "NATIVE"
 	// TradeTypeMWeb h5支付
-	TradeTypeMWeb     = "MWEB"
+	TradeTypeMWeb = "MWEB"
 	// TradeTypeApp app支付
-	TradeTypeApp      = "APP"
+	TradeTypeApp = "APP"
 	// TradeTypeMicroPay 刷卡支付
 	TradeTypeMicroPay = "MICROPAY"
 )

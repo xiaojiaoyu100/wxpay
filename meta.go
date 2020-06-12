@@ -20,11 +20,12 @@ const (
 	errCodeOrderNotExist      = "ORDERNOTEXIST"         // 此交易订单号不存在
 	errCodeBizerrNeedRetry    = "BIZERR_NEED_RETRY"     // 退款业务流程错误，需要商户触发重试来解决
 	errCodeRefundNotExist     = "REFUNDNOTEXIST"        // 退款订单查询失败 订单号错误或订单状态不正确
-	errNoAtuh= "NO_AUTH" // 没有该接口权限
-	errAmountLimit = "AMOUNT_LIMIT" // 金额超限
-	errNameMismatch = "NAME_MISMATCH" // 姓名校验出错
-	errFreqLimit = "FREQ_LIMIT" // 超过频率限制，请稍后再试。
-	errMoneyLimit = "MONEY_LIMIT" // 已经达到今日付款总额上限/已达到付款给此用户额度上限
+	errNoAtuh                 = "NO_AUTH"               // 没有该接口权限
+	errAmountLimit            = "AMOUNT_LIMIT"          // 金额超限
+	errNameMismatch           = "NAME_MISMATCH"         // 姓名校验出错
+	errFreqLimit              = "FREQ_LIMIT"            // 超过频率限制，请稍后再试。
+	errMoneyLimit             = "MONEY_LIMIT"           // 已经达到今日付款总额上限/已达到付款给此用户额度上限
+	errUserAccountAbnormal    = "USER_ACCOUNT_ABNORMAL" // 用户帐号注销
 
 )
 
@@ -78,4 +79,9 @@ func (meta *Meta) IsTradeOverDue() bool {
 // IsRefundNotExist 退款订单查询失败
 func (meta *Meta) IsRefundNotExist() bool {
 	return meta.ErrCode == errCodeRefundNotExist
+}
+
+// IsUserAccountAbnormal 用户账户注销
+func (meta *Meta) IsUserAccountAbnormal() bool {
+	return meta.ErrCode == errUserAccountAbnormal
 }

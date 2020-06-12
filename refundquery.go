@@ -12,13 +12,13 @@ const (
 
 const (
 	// RefundStatusSuccess 退款成功
-	RefundStatusSuccess     = "SUCCESS"
+	RefundStatusSuccess = "SUCCESS"
 	// RefundStatusRefundClose 退款关闭
 	RefundStatusRefundClose = "REFUNDCLOSE"
 	// RefundStatusProcessing 退款处理中
-	RefundStatusProcessing  = "PROCESSING"
+	RefundStatusProcessing = "PROCESSING"
 	// RefundStatusChange 退款异常，退款到银行发现用户的卡作废或者冻结了，导致原路退款银行卡失败，可前往商户平台（pay.weixin.qq.com）-交易中心，手动处理
-	RefundStatusChange      = "CHANGE"
+	RefundStatusChange = "CHANGE"
 )
 
 // RefundQueryRequest 退款查询请求

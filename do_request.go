@@ -20,7 +20,7 @@ func (c *Client) request(url string, in interface{}, out interface{}) ([]byte, e
 		err       error
 		body      []byte
 	)
-	tryLoop:
+tryLoop:
 	for {
 		if tempDelay == 0 {
 			tempDelay = 100 * time.Millisecond
