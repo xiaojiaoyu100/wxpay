@@ -1,2 +1,2 @@
 # wxpay
-go sdk for wxpay
+微信支付SDK
