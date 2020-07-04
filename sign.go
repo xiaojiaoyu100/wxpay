@@ -11,23 +11,25 @@ import (
 )
 
 func checkSign(stream []byte, key string) (err error) {
-	defer func() {
-		if err != nil {
-			notifyAsync(string(stream), err)
-		}
-	}()
-	reqMap := make(map[string]string)
-	err = xml.Unmarshal(stream, (*Map)(&reqMap))
-	if err != nil {
-		return
-	}
+    defer func() {
+        if err != nil {
+            notifyAsync(string(stream), err)
+        }
+    }()
+    reqMap := make(map[string]string)
+    err = xml.Unmarshal(stream, (*Map)(&reqMap))
+    if err != nil {
+        return
+    }
 
-	md5Sign := sign(reqMap, key)
-	if reqMap["sign"] != md5Sign {
-		err = signNotMatchErr
-		return
-	}
-	return
+    if v, ok := reqMap["sign"]; ok {
+        md5Sign := sign(reqMap, key)
+        if v != md5Sign {
+            err = signNotMatchErr
+            return
+        }
+    }
+    return
 }
 
 func sign(req map[string]string, key string) string {
