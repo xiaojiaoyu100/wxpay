@@ -22,6 +22,10 @@ func checkSign(stream []byte, key string) (err error) {
 		return
 	}
 
+	if _, ok := reqMap["sign"]; !ok {
+		return
+	}
+
 	md5Sign := sign(reqMap, key)
 	if reqMap["sign"] != md5Sign {
 		err = signNotMatchErr
