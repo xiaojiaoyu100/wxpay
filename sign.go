@@ -1,7 +1,9 @@
 package wxpay
 
 import (
+	"crypto/hmac"
 	"crypto/md5"
+	"crypto/sha256"
 	"encoding/hex"
 	"encoding/xml"
 	"fmt"
@@ -59,6 +61,11 @@ func sign(req map[string]string, key string) string {
 
 	// #3.生成sign并转成大写：
 	hash := md5.New()
+
+	if req["sign_type"] == SignTypeSHA256 {
+		hash = hmac.New(sha256.New, []byte(key))
+	}
+
 	hash.Write([]byte(signStrings))
 	upperSign := strings.ToUpper(hex.EncodeToString(hash.Sum(nil)))
 
