@@ -3,7 +3,7 @@ package wxpay
 const (
 	errCodeNoAuth             = "NOAUTH"                // 商户无此接口权限
 	errCodeNotEnough          = "NOTENOUGH"             // 余额不足
-	errCodeTradeOverDue       = "TRADE_OVERDUE"         //  订单已经超过退款期限
+	errCodeTradeOverDue       = "TRADE_OVERDUE"         // 订单已经超过退款期限
 	errCodeOrderPaid          = "ORDERPAID"             // 商户订单已支付
 	errCodeOrderClosed        = "ORDERCLOSED"           // 订单已关闭
 	errCodeSystemError        = "SYSTEMERROR"           // 系统错误
@@ -26,7 +26,9 @@ const (
 	errFreqLimit              = "FREQ_LIMIT"            // 超过频率限制，请稍后再试。
 	errMoneyLimit             = "MONEY_LIMIT"           // 已经达到今日付款总额上限/已达到付款给此用户额度上限
 	errUserAccountAbnormal    = "USER_ACCOUNT_ABNORMAL" // 用户帐号注销
-
+	errorNotFound             = "NOT_FOUND"             // 1、指定单号数据不存在 2、指定单号数据不存在，单据查询超过有效期
+	errorV2AccountSimpleBan   = "V2_ACCOUNT_SIMPLE_BAN" // 无法给未实名用户付款
+	errorSendNumLimit         = "SENDNUM_LIMIT"         // 用户今日付款次数超过限制
 )
 
 const (
@@ -84,4 +86,14 @@ func (meta *Meta) IsRefundNotExist() bool {
 // IsUserAccountAbnormal 用户账户注销
 func (meta *Meta) IsUserAccountAbnormal() bool {
 	return meta.ErrCode == errUserAccountAbnormal
+}
+
+// IsErrorNotFound 指定单号数据不存在或超过查询有效期
+func (meta *Meta) IsErrorNotFound() bool {
+	return meta.ErrCode == errorNotFound
+}
+
+// IsErrorV2AccountSimpleBan 无法给未实名用户付款
+func (meta *Meta) IsErrorV2AccountSimpleBan() bool {
+	return meta.ErrCode == errorV2AccountSimpleBan
 }

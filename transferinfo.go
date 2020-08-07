@@ -6,7 +6,12 @@ import "encoding/xml"
 
 const (
 	transferInfoURL = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo"
-	errorNotFound   = "NOT_FOUND"
+)
+
+const (
+	transferStatusSuccess    = "SUCCESS"
+	transferStatusFail       = "FAILED"
+	transferStatusProcessing = "PROCESSING"
 )
 
 // TransferInfoRequest 查询企业付款参数
@@ -49,6 +54,14 @@ func (c *Client) GetTransferInfo(request *TransferInfoRequest) (*TransferInfoRes
 	return &response, nil
 }
 
-func (resp TransferInfoResponse) HasPaid() bool {
-	return resp.ErrCode == errorNotFound
+func (resp *TransferInfoResponse) PaidSuccess() bool {
+	return resp.Status == transferStatusSuccess
+}
+
+func (resp *TransferInfoResponse) PaidFail() bool {
+	return resp.Status == transferStatusFail
+}
+
+func (resp *TransferInfoResponse) PayProcessing() bool {
+	return resp.Status == transferStatusProcessing
 }
