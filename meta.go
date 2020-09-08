@@ -20,7 +20,7 @@ const (
 	errCodeOrderNotExist      = "ORDERNOTEXIST"         // 此交易订单号不存在
 	errCodeBizerrNeedRetry    = "BIZERR_NEED_RETRY"     // 退款业务流程错误，需要商户触发重试来解决
 	errCodeRefundNotExist     = "REFUNDNOTEXIST"        // 退款订单查询失败 订单号错误或订单状态不正确
-	errNoAtuh                 = "NO_AUTH"               // 没有该接口权限
+	errNoAuth                 = "NO_AUTH"               // 没有该接口权限
 	errAmountLimit            = "AMOUNT_LIMIT"          // 金额超限
 	errNameMismatch           = "NAME_MISMATCH"         // 姓名校验出错
 	errFreqLimit              = "FREQ_LIMIT"            // 超过频率限制，请稍后再试。
@@ -29,6 +29,7 @@ const (
 	errorNotFound             = "NOT_FOUND"             // 1、指定单号数据不存在 2、指定单号数据不存在，单据查询超过有效期
 	errorV2AccountSimpleBan   = "V2_ACCOUNT_SIMPLE_BAN" // 无法给未实名用户付款
 	errorSendNumLimit         = "SENDNUM_LIMIT"         // 用户今日付款次数超过限制
+	errorSendFailed           = "SEND_FAILED"           // 付款失败
 )
 
 const (
@@ -96,4 +97,14 @@ func (meta *Meta) IsErrorNotFound() bool {
 // IsErrorV2AccountSimpleBan 无法给未实名用户付款
 func (meta *Meta) IsErrorV2AccountSimpleBan() bool {
 	return meta.ErrCode == errorV2AccountSimpleBan
+}
+
+// IsErrorSendFailed 付款错误
+func (meta *Meta) IsErrorSendFailed() bool {
+	return meta.ErrCode == errorSendFailed
+}
+
+// IsErrorNoAuth 没有账号权限或付款到的账号被风控或冻结
+func (meta *Meta) IsErrorNoAuth() bool {
+	return meta.ErrCode == errNoAuth
 }
