@@ -141,19 +141,19 @@ tryLoop:
 			var response struct {
 				ReturnCode string `xml:"return_code"`
 				ReturnMsg  string `xml:"return_msg"`
+				ErrCode    string `xml:"err_code"`
+				ErrCodeDes string `xml:"err_code_des"`
 			}
 			if err = xml.Unmarshal(buf.Bytes(), &response); err == nil {
-				switch response.ReturnMsg {
-				case billNoExistErr.Error():
+				switch response.ErrCode {
+				case noBillExistErrForFundFlow.Error():
 					return nil, billNoExistErr
-				case "SYSTEMERROR",
-					"CompressGZip Error",
-					"UnCompressGZip Error":
+				case systemerror.Error():
 					notifyAsync("downloadfundflow err: ", err)
 					time.Sleep(tempDelay)
 					continue tryLoop
 				default:
-					return nil, errors.New(response.ReturnMsg)
+					return nil, errors.New(response.ErrCodeDes)
 				}
 			} else {
 				break tryLoop
