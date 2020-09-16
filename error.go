@@ -10,7 +10,9 @@ const (
 
 // 微信的错误,请不要修改内容
 const (
-	billNoExistErr = Error("No Bill Exist")
+	billNoExistErr            = Error("No Bill Exist")
+	noBillExistErrForFundFlow = Error("NO_BILL_EXIST")
+	systemerror               = Error("SYSTEMERROR")
 )
 
 func (err Error) Error() string {
@@ -19,7 +21,7 @@ func (err Error) Error() string {
 
 // IsBillNoExist 账单不存在
 func IsBillNoExist(err error) bool {
-	return err == billNoExistErr
+	return err == billNoExistErr || err == noBillExistErrForFundFlow
 }
 
 func shouldRetry(err error) bool {
