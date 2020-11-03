@@ -56,3 +56,17 @@ func SetTLSClient(path, password string) error {
 	}
 	return nil
 }
+
+func SetTLSClientByPEM(certPEMBlock, keyPEMBlock []byte) error {
+	cert, err := tls.X509KeyPair(certPEMBlock, keyPEMBlock)
+	if err != nil {
+		globalLogger.printf("X509KeyPair err: %v", err)
+		return err
+	}
+	tlsClient.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{
+			Certificates: []tls.Certificate{cert},
+		},
+	}
+	return nil
+}
